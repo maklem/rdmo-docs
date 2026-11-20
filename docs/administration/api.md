@@ -32,11 +32,7 @@ Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
 ### User Generated Tokens
 
 Administrators can set `ACCOUNT_ALLOW_USER_TOKEN = True` in `local.py`.
-Then users can create and refresh tokens on their own at `https://$YOUR_RDMO/account/token/`.
-
-[RDMO 2.5.x] by browsing the url above
-
-[RDMO 3 development] by selecting `API Token` in the user menu or browsing url above.
+Then users can create and refresh tokens on their own at `API Token` in the user menu or browsing to `https://$YOUR_RDMO/account/token/`.
 
 **Note:** If you use single-sign-on as access control, an API token bypasses that.
 
@@ -93,9 +89,19 @@ To enable API documentation you need to
     ]
     ```
 
-[RDMO 2.5.x] Now you can access the api documentation at `http://$YOUR_RDMO/api/v1/swagger`
+Now you can access the api documentation at `http://$YOUR_RDMO/api/` and access schema, swagger-ui and redoc from there.
 
-[RDMO 3 development] Now you can access the api documentation at `http://$YOUR_RDMO/api/` and access schema, swagger-ui and redoc from there.
+If you get an error or an empty page, check if the api landing page is included in `rdmp-app/config/urls.py`. You should find an import, and a path specification within `urlpatterns`.
+```py
+from rdmo.core.views import api
+
+urlpatterns = [
+    ...,
+    path('api/', api, name='api'),
+]
+```
+In case they are missing consider updating your rdmo-app, or add them manually.
+
 
 ## API access via `curl` commands
 
